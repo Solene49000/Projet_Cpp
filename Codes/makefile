@@ -1,4 +1,5 @@
 CC = g++
+ALLEGRO = $(pkg-config --libs allegro-5 allegro_font-5 allegro_ttf-5)
 CFLAGS = -Wall
 LDFLAGS = -lm
 EXEC = executable_projet
@@ -9,13 +10,13 @@ OBJ  = $(SRC:.cpp=.o)
 all: $(EXEC)
 
 executable_projet : $(OBJ)
-    $(CC) -o $@ $^ $(LDFLAGS)
+    $(CC) -o $@ $^ $(LDFLAGS) $(ALLEGRO)
 
 %.o: $(SRC) $(STRUCT) 
-        $(CC) -o $@ -c $< $(CFLAGS)
+	$(CC) -o $@ -c $< $(CFLAGS) $(ALLEGRO)
 
 clean:
-        rm -rf *.o
+	rm -rf *.o
 
 mrproper: clean
-        rm -rf $(EXEC)
+	rm -rf $(EXEC)
