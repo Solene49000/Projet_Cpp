@@ -4,19 +4,18 @@ CFLAGS = -Wall
 LDFLAGS = -lm
 EXEC = executable_projet
 SRC = $(wildcard *.cpp)
-SRTUCT = $(SRC:.cpp=.hpp 
 OBJ  = $(SRC:.cpp=.o)
 
 all: $(EXEC)
 
-executable_projet : $(OBJ)
-    $(CC) -o $@ $^ $(LDFLAGS) $(ALLEGRO)
+$(EXEC): $(OBJ)
+	$(CC) -o $@ $^ $(LDFLAGS) $(ALLEGRO)
 
-%.o: $(SRC) $(STRUCT) 
+%.o: $(SRC) *.hpp
 	$(CC) -o $@ -c $< $(CFLAGS) $(ALLEGRO)
 
 clean:
 	rm -rf *.o
 
-mrproper: clean
+clean_all: clean
 	rm -rf $(EXEC)
