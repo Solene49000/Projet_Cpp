@@ -1,21 +1,22 @@
-CC = g++
-ALLEGRO = $(pkg-config --libs allegro-5 allegro_font-5 allegro_ttf-5)
-CFLAGS = -Wall
-LDFLAGS = -lm
+C = g++
+CXXFLAGS = -g -Wall $(pkg-config --libs allegro-5 allegro_font-5 allegro_ttf-5)
+LDFLAGS = -lm $(pkg-config --libs allegro-5 allegro_font-5 allegro_ttf-5)
 EXEC = executable_projet
 SRC = $(wildcard *.cpp)
-OBJ  = $(SRC:.cpp=.o)
+OBJ  = $(SRC:.cpp=.o) 
+H = tour.h anneau.h
+OBJ_H = $(H:.h=.o)
 
 all: $(EXEC)
 
-$(EXEC): $(OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS) $(ALLEGRO)
+$(EXEC): $(OBJ) $(OBJ_H)
+        $(CC) $^ $(LDFLAGS) -o $@
 
-%.o: $(SRC) *.hpp
-	$(CC) -o $@ -c $< $(CFLAGS) $(ALLEGRO)
+%.o: $(SRC) $(H)
+        $(CC) $(CFLAGS) -o $@ -c $^
 
 clean:
-	rm -rf *.o
+        rm -rf *.o
 
 clean_all: clean
-	rm -rf $(EXEC)
+        rm -rf $(EXEC)
