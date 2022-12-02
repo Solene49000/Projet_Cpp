@@ -1,19 +1,20 @@
-C = g++
+CC = g++
 CXXFLAGS = -g -Wall $(pkg-config --libs allegro-5 allegro_font-5 allegro_ttf-5)
 LDFLAGS = -lm $(pkg-config --libs allegro-5 allegro_font-5 allegro_ttf-5)
 EXEC = executable_projet
 SRC = $(wildcard *.cpp)
 OBJ  = $(SRC:.cpp=.o) 
 H = tour.h anneau.h
-OBJ_H = $(H:.h=.o)
 
 all: $(EXEC)
 
-$(EXEC): $(OBJ) $(OBJ_H)
+$(EXEC): $(OBJ)
         $(CC) $^ $(LDFLAGS) -o $@
 
-%.o: $(SRC) $(H)
+%.o: $(SRC)
         $(CC) $(CFLAGS) -o $@ -c $^
+
+main.o: $(H)
 
 clean:
         rm -rf *.o
