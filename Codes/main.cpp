@@ -7,6 +7,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_color.h>
 
+//#include "header.hpp"
 
 //VARIABLES GOBALES A METTRE DANS LE FICHIER ADAPTE
 #define scrx 640
@@ -35,15 +36,47 @@ ALLEGRO_FONT * font = al_load_ttf_font("/usr/share/fonts/truetype/dejavu/DejaVuS
 //al_start_timer(timer);
 //run(); /* run my application */
 
+//DEBUT RUN
+ALLEGRO_MOUSE_STATE mouse; //Souris simple
+int fin = 0, oldx = 0, oldy = 0;
+
+    while (!fin){
+
+        // récupération de l'état de la souris
+        al_get_mouse_state(&mouse);
+
+        // si mouvement afficher position dans console
+        if (oldx != mouse.x || oldy != mouse.y){
+            oldx = mouse.x;
+            oldy = mouse.y;
+            printf("%d-%d\n", mouse.x, mouse.y);
+        }
+
+        // si clic gauche changer couleur fenêtre
+        if (mouse.buttons & 1)
+            al_clear_to_color(al_map_rgb(rand() % 256,
+            rand() % 256,
+            rand() % 256));
+
+        // si clic droit quitter
+        if (mouse.buttons & 2)
+            fin = 1;
+
+        al_flip_display();
+    }
+
+//FIN RUN
+
 //al_destroy_event_queue(ui.queue);
-al_flip_display();
+
 
 //Temps d'attente en secondes
-al_rest(5.0);
+
 
 al_destroy_font(font);
 al_destroy_display(display);
 return 0;
 }
+
 
 
