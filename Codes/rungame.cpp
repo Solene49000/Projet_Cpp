@@ -7,12 +7,20 @@
 #include "runlib.h"
 #include "variables.h"
 
+//VARIABLES GLOBALES A SUPP DES QUE LIBS TOURS ET ANNEAUX FAITS
+
 void rungame(void) {
 
 ALLEGRO_MOUSE_STATE mouse; //Souris simple
-int fin = 0, oldx = 0, oldy = 0;
-int moitie_gauche = scrx/2;
-int selection = 1; //Selection prend la valeur 0 si un disque est selectionné
+int oldx = 0, oldy = 0;
+bool fin = false, isintour1 = false, isintour2 = false, isintour3 = false;
+int tour1posx=100;
+int tour2posx=320;
+int tour3posx=440;
+int tourposy=80;
+int tourlargeur=100;
+int tourhauteur=300;
+bool selection = false; //Selection prend la valeur TRUE si un disque est selectionné
 
     while (!fin){
 
@@ -26,18 +34,40 @@ int selection = 1; //Selection prend la valeur 0 si un disque est selectionné
             //printf("%d-%d\n", mouse.x, mouse.y);
         }
 
-        // si clic gauche à gauche changer couleur fenêtre
-        if (mouse.buttons & 1 && oldx <= moitie_gauche)
-            al_clear_to_color(al_map_rgb(rand() % 256,
-            rand() % 256,
-            rand() % 256));
-	//Position dans une tour ou non ?
-	//if(<oldx<
+	//Position dans une tour ?
+	if(tour1posx < oldx && oldx < (tour1posx + tourlargeur) && tourposy < oldy && oldy < (tourposy + tourhauteur))
+	{
+		isintour1 = true;
+	}
+	else if(tour2posx < oldx && oldx < (tour2posx + tourlargeur) && tourposy < oldy && oldy < (tourposy + tourhauteur))
+	{
+		isintour2 = true;
+	}
+	else if(tour3posx < oldx && oldx < (tour3posx + tourlargeur) && tourposy < oldy && oldy < (tourposy + tourhauteur))
+	{
+		isintour3 = true;
+	}
+	else{
+		isintour1 = false;
+		isintour2=false;
+		isintour3=false;
+	}
 	//si clic sur tour pour selectionner un disque
-	//if (mouse.buttons & 1 && selection=1 && oldx <= tour)
-        // si clic droit quitter
+	if (mouse.buttons & 1 && selection==false && (isintour1 == true || isintour2 == true || isintour3 == true))
+	{
+		selection = false;
+		al_clear_to_color(al_map_rgb(rand() % 256,rand() % 256, rand() % 256));
+		//Appel prog pour supprimer le disque de la tour concernée
+	}
+	//si clic sur tour pour poser disque
+	if(mouse.buttons & 1 && selection==true && (isintour1 == true || isintour2 == true || isintour3 == true))
+	{
+		selection = false;
+		al_clear_to_color(al_map_rgb(0,0,0));
+	}
+	// si clic droit quitter
         if (mouse.buttons & 2)
-            fin = 1;
+            fin = true;
 
         al_flip_display();
     }
