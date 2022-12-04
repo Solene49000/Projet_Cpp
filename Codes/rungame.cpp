@@ -3,16 +3,11 @@
 #include "variables.h"
 
 //DEMMARAGE
-void rungame(ALLEGRO_DISPLAY * display) {
-	//Initialisation librairies
-	al_init_primitives_addon();
-	//Initialisation gestionnaire des events
-	ALLEGRO_EVENT_QUEUE * event_queue = al_create_event_queue();
-	al_register_event_source(event_queue, al_get_display_event_source(display));
-	al_register_event_source(event_queue, al_get_mouse_event_source());
+void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
+
 	//Initialisation des variables
 	int x = 0, y = 0;
-	bool loop = true;
+	bool loop1 = true;
 	bool * isintour1 = (bool*)malloc(sizeof(bool));
 	bool * isintour2 = (bool*)malloc(sizeof(bool));
 	bool * isintour3 = (bool*)malloc(sizeof(bool));
@@ -20,17 +15,17 @@ void rungame(ALLEGRO_DISPLAY * display) {
 	*isintour2=false;
 	*isintour3=false;
 	bool selection = false; //Selection prend la valeur TRUE si un disque est selectionné
-	
+	//Clear screen
+	al_clear_to_color(BLACK);
 	//Gestionnaire des evenements
-	al_create_event_queue();
-	    while (loop){
+	    while (loop1){
 		display_tours();
 		ALLEGRO_EVENT events;
 		al_wait_for_event(event_queue, &events);
 		//Si appui sur croix rouge : fermer fenêtre
 		if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-	            loop=false;
-	        }
+	            loop1=false;
+		}
 
 	        // si mouvement de souris : enregistrer la position
 	        if (events.type == ALLEGRO_EVENT_MOUSE_AXES ){
@@ -47,6 +42,7 @@ void rungame(ALLEGRO_DISPLAY * display) {
 			{
 				selection = false;
 				al_clear_to_color(al_map_rgb(rand() % 256,rand() % 256, rand() % 256));
+				display_tours();
 			//Appel prog pour supprimer le disque de la tour concernée
 			}
 		}
@@ -64,6 +60,8 @@ void rungame(ALLEGRO_DISPLAY * display) {
 	}//Fin gestionnaire des evenements
 	//Destructeur
 	al_destroy_event_queue(event_queue);
+	return;
+
 }
 
 void is_mouse_in_tour(int x, int y, bool *isintour1, bool *isintour2, bool *isintour3 ){
