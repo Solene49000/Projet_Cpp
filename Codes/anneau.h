@@ -1,5 +1,8 @@
 // PROJET : TOURS DE HANOI - - A.ALLOUIS & S.GUILLAUME
 
+// BIBLIOTHEQUES
+#include <iostream>
+
 // Structure anneau_structure
 struct anneau_structure (
 	int numero_anneau;
