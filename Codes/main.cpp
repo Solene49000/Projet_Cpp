@@ -1,11 +1,6 @@
 // PROJET TOURS DE HANOI - - ALLOUIS GUILLAUME
 
 //libraries
-#include <iostream>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_color.h>
 #include "runlib.h"
 #include "variables.h"
 
@@ -17,7 +12,7 @@ al_init_font_addon();
 al_init_ttf_addon();
 al_install_mouse(); //Left button is #1
 al_init_primitives_addon();
-
+al_init_image_addon();
 //Ouverture fenetre
 ALLEGRO_DISPLAY * display = al_create_display(SCRX, SCRY);
 al_set_window_title(display, "Tours Hanoi");
@@ -31,6 +26,7 @@ al_create_event_queue();
 runmenu(display, event_queue);
 //Destructeurs
 al_destroy_display(display);
+al_destroy_event_queue(event_queue);
 return 0;
 }
 
