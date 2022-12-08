@@ -3,7 +3,7 @@
 #include "variables.h"
 
 //DEMMARAGE
-void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
+void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue, int * difficulty) {
 
 	//Initialisation des variables
 	int x = 0, y = 0;
@@ -15,10 +15,10 @@ void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
 	*isintour2=false;
 	*isintour3=false;
 	bool selection = false; //Selection prend la valeur TRUE si un disque est selectionné
-	//Clear screen
-	al_clear_to_color(BLACK);
+
 	//Gestionnaire des evenements
 	    while (loop1){
+		al_clear_to_color(BLACK);
 		display_tours();
 		ALLEGRO_EVENT events;
 		al_wait_for_event(event_queue, &events);
@@ -36,9 +36,9 @@ void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
 		is_mouse_in_tour(x,y,isintour1,isintour2,isintour3);
 
 		//si clic sur tour pour selectionner un disque : Appel fonction supprimer disque
-		if (events.type==ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && selection==false && (*isintour1 == true || *isintour2 == true || *isintour3 == true))
+		if (selection==false && (*isintour1 == true || *isintour2 == true || *isintour3 == true))
 		{
-			if(events.mouse.button & 1)
+			if(events.type==ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && events.mouse.button & 1)
 			{
 				selection = false;
 				al_clear_to_color(al_map_rgb(rand() % 256,rand() % 256, rand() % 256));
@@ -47,9 +47,9 @@ void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
 			}
 		}
 		//si clic sur tour pour poser disque : Appel fonction pose disque
-		if(events.type==ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && selection==true && (*isintour1 == true || *isintour2 == true || *isintour3 == true))
+		if(selection==true && (*isintour1 == true || *isintour2 == true || *isintour3 == true))
 		{
-			if(events.mouse.button & 1)
+			if(events.type==ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && events.mouse.button & 1)
 			{
 				selection = false;
 				al_clear_to_color(al_map_rgb(0,0,0));
@@ -58,8 +58,6 @@ void rungame(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
 		//Afficher nouvel écran
 	        al_flip_display();
 	}//Fin gestionnaire des evenements
-	//Destructeur
-	al_destroy_event_queue(event_queue);
 	return;
 
 }
@@ -99,7 +97,6 @@ void display_tours(){
 	int tourposy=80;
 	int tourlargeur=100;
 	int tourhauteur=300;
-
 	//Rectangles représentant les tours
 	al_draw_filled_rectangle(tour1posx, tourposy, tour1posx+tourlargeur, tourposy+tourhauteur,al_map_rgb(0,0,0));
 	al_draw_filled_rectangle(tour2posx, tourposy, tour2posx+tourlargeur, tourposy+tourhauteur,al_map_rgb(0,0,0));
