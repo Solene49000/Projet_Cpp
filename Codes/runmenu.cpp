@@ -28,8 +28,8 @@ void runmenu(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * event_queue) {
 	ALLEGRO_FONT * font = al_load_ttf_font("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 64,0);
 	ALLEGRO_FONT * medium_font = al_load_ttf_font("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 25,0);
 	//Initialisation image
-	ALLEGRO_BITMAP * image = al_load_bitmap("/home/patate/Bureau/projet_jeu_hanoi/Images/hanoi.jpg");
-	//ALLEGRO_BITMAP * image = al_load_bitmap("/home/solene/Documents/Programmation/Projet/hanoi.jpg");
+	//ALLEGRO_BITMAP * image = al_load_bitmap("/home/patate/Bureau/projet_jeu_hanoi/Images/hanoi.jpg");
+	ALLEGRO_BITMAP * image = al_load_bitmap("/home/solene/Documents/Programmation/Projet_Cpp/Codes/Images/hanoi.jpg");
 	//Gestionnaire des evenements
 	while (loop){
 

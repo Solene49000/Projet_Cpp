@@ -2,13 +2,19 @@
 
 //LIBRAIRIES
 #include "librairies.h"
+#define SCRX 640
+#define SCRY 480
+// Structure anneau
+class Anneau
+{
 
-// Structure anneau_structure
-struct anneau_structure {
-	int numero_anneau;
-	int hauteur_anneau;
-	int largeur_anneau;
-	int largeur_unitaire_anneau;
-	int numero_tour;
-	int numero_etage;
+	public:
+	int numeroanneau;
+	int anneauhauteur=35;
+	int anneaulargeur;
+	int positionanneauintour;
+	ALLEGRO_COLOR color = al_map_rgb(rand() % 256,rand() % 256, rand() % 256);
+	public: void display_anneau(std::vector<int> tour1_tab,std::vector<int> tour2_tab,std::vector<int> tour3_tab, Tour tour);
+	public:
+	Anneau(int num){numeroanneau=num;}
 };

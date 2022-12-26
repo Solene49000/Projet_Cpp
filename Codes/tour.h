@@ -2,13 +2,18 @@
 
 //LIBRAIRIES
 #include "librairies.h"
+#define SCRX 640
+#define SCRY 480
 
-// DECLARATION DE LA STRUCTURE TOUR_STRUCTURE
-struct tour_structure {
-	int numero_tour;
-	int nombre_etage;
-	int position_x;
-	int position_y;
-	int position_milieu_x;
-	int tab_etage_anneau[];
+// DECLARATION DE LA STRUCTURE TOUR
+class Tour
+{
+	public:
+	int tourposy=80;
+	int tourlargeur=20;
+	int tourhauteur=200;
+	int tour1posx=SCRX/2-180-tourlargeur;
+	int tour2posx=SCRX/2-tourlargeur/2;
+	int tour3posx=SCRX/2+180;
+	public: void display_tours();
 };
