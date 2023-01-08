@@ -2,6 +2,7 @@
 ##Tours de Hanoi
 -
 
+ATTENTION : Pour executer le projet changer le chemin de l'image (ligne 31 dans runmenu.cpp)
 Voici le projet des tours de Hanoi en C++.
 Pour jouer : 
 -
